@@ -56,4 +56,10 @@ public class GreetingController {
     public List<GreetingMessage> getAllGreetings() {
         return greetingService.getAllGreetings();
     }
+
+    // uc7 - Handles HTTP PUT request to update an existing greeting message by ID
+    @PutMapping("/update/{id}")
+    public Optional<GreetingMessage> updateGreeting(@PathVariable Long id, @RequestParam String message) {
+        return greetingService.updateGreeting(id, message);
+    }
 }

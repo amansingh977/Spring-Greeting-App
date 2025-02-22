@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-// uc2 - Service class for greeting messages
+// Service Layer for Greeting App
 @Service
 public class GreetingService {
 
@@ -19,20 +19,22 @@ public class GreetingService {
 
     // uc2 - Returns a default greeting message
     public String getGreetingMessage() {
-        return "Hello, welcome to our Spring Boot app!";
+        return "Hello from the Service Layer!";
     }
 
     // uc3 - Returns a personalized greeting message
     public String getPersonalizedGreeting(String firstName, String lastName) {
         if (firstName == null && lastName == null) {
-            return "Hello, Guest!";
+            return "Hello!";
         }
         return "Hello, " + (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "") + "!";
     }
 
-    // uc4 - Saves a greeting message in the repository
+    // uc4 - Saves a new greeting message
     public GreetingMessage saveGreeting(String message) {
-        return greetingRepository.save(new GreetingMessage(message));
+        GreetingMessage greeting = new GreetingMessage();
+        greeting.setMessage(message);
+        return greetingRepository.save(greeting);
     }
 
     // uc5 - Retrieves a greeting message by ID
@@ -40,8 +42,16 @@ public class GreetingService {
         return greetingRepository.findById(id);
     }
 
-    // uc6 - Retrieves all greeting messages from the repository
+    // uc6 - Retrieves all greeting messages
     public List<GreetingMessage> getAllGreetings() {
         return greetingRepository.findAll();
+    }
+
+    // uc7 - Updates an existing greeting message by ID
+    public Optional<GreetingMessage> updateGreeting(Long id, String newMessage) {
+        return greetingRepository.findById(id).map(existingGreeting -> {
+            existingGreeting.setMessage(newMessage);
+            return greetingRepository.save(existingGreeting);
+        });
     }
 }
