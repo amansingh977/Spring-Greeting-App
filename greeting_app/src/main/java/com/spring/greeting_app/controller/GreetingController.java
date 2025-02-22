@@ -52,14 +52,20 @@ public class GreetingController {
     }
 
     // uc6 - Handles HTTP GET request to retrieve all greeting messages
-    @GetMapping("/all")
+    @GetMapping("/list")
     public List<GreetingMessage> getAllGreetings() {
         return greetingService.getAllGreetings();
     }
 
-    // uc7 - Handles HTTP PUT request to update an existing greeting message by ID
+    // uc7 - Handles HTTP PUT request to update a greeting message
     @PutMapping("/update/{id}")
-    public Optional<GreetingMessage> updateGreeting(@PathVariable Long id, @RequestParam String message) {
+    public GreetingMessage updateGreeting(@PathVariable Long id, @RequestParam String message) {
         return greetingService.updateGreeting(id, message);
+    }
+
+    // uc8 - Handles HTTP DELETE request to delete a greeting message by ID
+    @DeleteMapping("/delete/{id}")
+    public String deleteGreetingById(@PathVariable Long id) {
+        return greetingService.deleteGreetingById(id);
     }
 }
