@@ -1,5 +1,6 @@
 package com.spring.greeting_app.controller;
 
+import com.spring.greeting_app.service.GreetingService;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
@@ -7,6 +8,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/greet")
 public class GreetingController {
+
+    // Injecting GreetingService
+    private final GreetingService greetingService;
+
+    // Constructor-based dependency injection
+    public GreetingController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
 
     // uc1 - Handles HTTP GET request and returns a greeting message as JSON
     @GetMapping
@@ -31,5 +40,12 @@ public class GreetingController {
     public Map<String, String> deleteGreeting() {
         return Map.of("message", "Greeting has been deleted!");
     }
+
+    // uc2 - Handles HTTP GET request and returns greeting from the Service Layer
+    @GetMapping("/service")
+    public Map<String, String> getServiceGreeting() {
+        return Map.of("message", greetingService.getGreetingMessage());
+    }
 }
+
 
