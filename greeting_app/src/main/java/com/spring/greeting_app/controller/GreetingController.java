@@ -49,4 +49,10 @@ public class GreetingController {
     public Optional<GreetingMessage> getGreetingById(@PathVariable Long id) {
         return greetingService.getGreetingById(id);
     }
+
+    // uc5 - Ability to find a Greeting Message by Id in the Repository
+    @GetMapping("/find/{id}")
+    public Optional<GreetingMessage> findGreetingById(@PathVariable Long id) {
+        return greetingService.findGreetingById(id);
+    }
 }
