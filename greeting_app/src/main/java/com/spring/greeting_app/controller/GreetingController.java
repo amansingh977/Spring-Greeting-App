@@ -4,6 +4,7 @@ import com.spring.greeting_app.model.GreetingMessage;
 import com.spring.greeting_app.service.GreetingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,15 +45,15 @@ public class GreetingController {
         return greetingService.saveGreeting(message);
     }
 
-    // uc4 - Handles HTTP GET request to retrieve a greeting message by ID
+    // uc5 - Handles HTTP GET request to retrieve a greeting message by ID
     @GetMapping("/get/{id}")
     public Optional<GreetingMessage> getGreetingById(@PathVariable Long id) {
         return greetingService.getGreetingById(id);
     }
 
-    // uc5 - Ability to find a Greeting Message by Id in the Repository
-    @GetMapping("/find/{id}")
-    public Optional<GreetingMessage> findGreetingById(@PathVariable Long id) {
-        return greetingService.findGreetingById(id);
+    // uc6 - Handles HTTP GET request to retrieve all greeting messages
+    @GetMapping("/all")
+    public List<GreetingMessage> getAllGreetings() {
+        return greetingService.getAllGreetings();
     }
 }

@@ -4,9 +4,10 @@ import com.spring.greeting_app.model.GreetingMessage;
 import com.spring.greeting_app.repository.GreetingRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-// Service Layer for handling Greeting logic
+// uc2 - Service class for greeting messages
 @Service
 public class GreetingService {
 
@@ -16,9 +17,9 @@ public class GreetingService {
         this.greetingRepository = greetingRepository;
     }
 
-    // uc2 - Returns a simple greeting message
+    // uc2 - Returns a default greeting message
     public String getGreetingMessage() {
-        return "Hello from the Service Layer!";
+        return "Hello, welcome to our Spring Boot app!";
     }
 
     // uc3 - Returns a personalized greeting message
@@ -26,27 +27,21 @@ public class GreetingService {
         if (firstName == null && lastName == null) {
             return "Hello, Guest!";
         }
-        if (firstName == null) {
-            return "Hello, " + lastName + "!";
-        }
-        if (lastName == null) {
-            return "Hello, " + firstName + "!";
-        }
-        return "Hello, " + firstName + " " + lastName + "!";
+        return "Hello, " + (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "") + "!";
     }
 
-    // uc4 - Saves a greeting message to the repository
+    // uc4 - Saves a greeting message in the repository
     public GreetingMessage saveGreeting(String message) {
         return greetingRepository.save(new GreetingMessage(message));
     }
 
-    // uc4 - Retrieves a greeting message by ID
+    // uc5 - Retrieves a greeting message by ID
     public Optional<GreetingMessage> getGreetingById(Long id) {
         return greetingRepository.findById(id);
     }
 
-    // uc5 - Finds a Greeting Message by ID in the Repository
-    public Optional<GreetingMessage> findGreetingById(Long id) {
-        return greetingRepository.findById(id);
+    // uc6 - Retrieves all greeting messages from the repository
+    public List<GreetingMessage> getAllGreetings() {
+        return greetingRepository.findAll();
     }
 }
