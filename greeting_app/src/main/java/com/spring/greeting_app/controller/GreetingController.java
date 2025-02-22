@@ -46,6 +46,12 @@ public class GreetingController {
     public Map<String, String> getServiceGreeting() {
         return Map.of("message", greetingService.getGreetingMessage());
     }
+
+    // uc3 - Handles HTTP GET request to return a personalized greeting
+    @GetMapping("/personalized")
+    public Map<String, String> getPersonalizedGreeting(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+        return Map.of("message", greetingService.getPersonalizedGreeting(firstName, lastName));
+    }
 }
-
-
